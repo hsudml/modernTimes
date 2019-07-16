@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ideaFest 2019 AR 3D Model Showcase</title>
+    <meta name="description" content="Simple setup for showing a 3D model.">
+    <meta name="apple-mobile-web-app-capable">
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-star-system-component@1.0.0/index.js"></script>
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+    <script src="script.js"></script>
+    <script src="href.js"></script>
+    <script src="hammer.js"></script>
+    <script src="play-all-model-animations.js"></script>
+    <!-- let's add the animation and orbit controls components -->
+    <script src="https://unpkg.com/aframe-animation-component@^5.1.2/dist/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-orbit-controls@1.2.0/dist/aframe-orbit-controls.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <a-scene embedded arjs="sourceType: webcam;" vr-mode-ui="enabled: true;">
+
+      <!-- This is a "mixin" we can apply to planets to make them rotate-->
+      <a-mixin id="rotation" animation="property: rotation; loop: true; from:  0 0 0; to: 0 360 0; dur: 20000; easing: linear;"></a-mixin>
+
+      <!-- here is a "mixin" that we can apply to a container to make the planet inside it orbit -->
+      <a-mixin id="orbit" animation="property: rotation; loop: true; to: 0 360 0; dur: 40000; easing: linear;"></a-mixin>
+      
+      <!-- LOAD YOUR ASSETS -->
+      <a-assets>
+        <a-asset-item id="hand" src="https://cdn.glitch.com/2af482b8-fac5-4736-ba8f-259feaac156f%2Fthe-hand-with-skeleton-completed-v7.glb"></a-asset-item>
+        
+        <a-asset-item id="train" src="https://cdn.glitch.com/d1d61e64-3088-4446-aea3-e86cb480138a%2Fdestroy-trees.glb"></a-asset-item>
+      </a-assets>
+      
+      <!-- Give some basic lighting here. Ambient lighting lights the
+      whole scene and makes sure we can still see our rings. -->
+      <a-entity id="basic-light" light="type: ambient; color: #BBB"></a-entity>
+      
+     
+      
+      
+      <a-marker preset="hiro">
+      
+        <a-entity gltf-model="#hand" 
+                  position="0 0 0" 
+                  scale="4 4 4" 
+                  rotation="0 0 0" 
+                  animation-mixer
+                  play-all-model-animations
+                  modify-materials>
+        </a-entity>
+        <a-light type="point" position="0 2 4" color="#666" intensity="2"></a-light>
+        
+      </a-marker>
+
+      <!-- add a simple camera -->
+      <a-entity camera></a-entity>
+    </a-scene>
+    <script src="https://button.glitch.me/button.js"></script>
+  </body>
+</html>
